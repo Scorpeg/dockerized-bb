@@ -16,3 +16,10 @@
 /workers/*/Dockerfile.debug
 
 __pycache__/
+
+/buildbot-data/ios5-local/
+/STATUS.md
+/nginx/
+/secrets/
+/buildbot.env
+/config.local.env

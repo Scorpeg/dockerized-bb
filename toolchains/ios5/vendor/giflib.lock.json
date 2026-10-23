@@ -1,0 +1,11 @@
+{
+  "name": "giflib",
+  "version": "6.1.3",
+  "source_kind": "official release archive; no Git revision inferred",
+  "archive_url": "https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.3.tar.gz",
+  "archive_sha256": "b65b66b99f0424b93525f987386f22fc5efb9da2bfc92ad4a532249aaffbab0e",
+  "manifest_sha256": "bca03e3a530a55173cd253f636f6048c41185f5c864f32ff16c76ae7ee49d029",
+  "license": "MIT; vendor/giflib/COPYING",
+  "patches": [],
+  "configuration": "static gnu99 -O2 -fvisibility=hidden; bundled openbsd_reallocarray; no external iPad packages"
+}

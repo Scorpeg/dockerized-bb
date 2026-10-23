@@ -1,0 +1,7 @@
+build
+build-full
+logs
+__pycache__
+.git
+vendor/**/.git
+vendor/**/__pycache__

@@ -128,3 +128,8 @@ serve_daily_builds = False
 #    # Mention @devs in case of build failure
 #    'failure': ['&581796319677513729'],
 #}
+
+ios5_repository = os.environ.get("IOS5_REPOSITORY", "https://github.com/YOUR_ACCOUNT/scummvm.git")
+ios5_branch = "ios5"
+
+ios5_giturl = ios5_repository if ios5_repository.endswith(".git") else ios5_repository + ".git"

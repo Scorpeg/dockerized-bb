@@ -1,0 +1,9 @@
+/local/
+/vendor/full-archives/
+/vendor/libpng/
+/vendor/giflib/
+/vendor/freetype/
+/build/
+/build-full/
+/logs/
+__pycache__/

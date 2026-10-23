@@ -572,9 +572,4 @@ class ScummVMToolsBuild(StandardBuild):
         # Don't do anything: we don't have tests of tools
         pass
 
-builds = []
-
-builds.append(ScummVMBuild("master", "https://github.com/scummvm/scummvm", "master", verbose_build=True, daily=(4, 1), description="ScummVM latest\nBranch master"))
-#builds.append(ScummVMStableBuild("stable", "https://github.com/scummvm/scummvm", "branch-3-0", verbose_build=True, use_ccache=False, daily=(4, 1), description="ScummVM stable\nFuture 3.0.x"))
-#builds.append(ScummVMBuild("gsoc2012", "https://github.com/digitall/scummvm", "gsoc2012-scalers-cont", verbose_build=True))
-builds.append(ScummVMToolsBuild("tools-master", "https://github.com/scummvm/scummvm-tools", "master", verbose_build=True, daily=(4, 1), description="ScummVM tools"))
+builds = [ScummVMBuild("master", getattr(config, "ios5_repository", "https://github.com/YOUR_ACCOUNT/scummvm"), getattr(config, "ios5_branch", "ios5"), verbose_build=True, description="ScummVM iOS5")]

@@ -1,0 +1,11 @@
+{
+  "name": "FreeType",
+  "version": "2.15.0",
+  "source_kind": "official release archive; no Git revision inferred",
+  "archive_url": "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz",
+  "archive_sha256": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5",
+  "manifest_sha256": "928e3de5c144187ec6f88b55b22434d22cceb189d9aef3c5762b720482115c4a",
+  "license": "FreeType License; vendor/freetype/docs/FTL.TXT",
+  "patches": [],
+  "configuration": "static gnu99 -O2 -fvisibility=hidden; docs/INSTALL.ANY build; TrueType/CFF/SFNT, auto-hinter, grayscale/mono rasterizers; internal zlib; no PNG, HarfBuzz, Brotli, bzip2 or HVF library"
+}

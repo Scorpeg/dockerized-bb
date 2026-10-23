@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "$IOS_TOOLCHAIN_BIN/clang++" -target armv7-apple-ios5.1 -B"$IOS_TOOLCHAIN_BIN" -isysroot "$IOS_SDK_ROOT" -miphoneos-version-min=5.1 -mthumb -stdlib=libc++ -nostdinc++ -isystem "$IOS_TOOLCHAIN_BIN/../include/c++/v1" "$@"

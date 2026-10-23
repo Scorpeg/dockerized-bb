@@ -1,0 +1,11 @@
+--- a/crypto/threads_pthread.c
++++ b/crypto/threads_pthread.c
+@@ -1,3 +1,8 @@
++/* Legacy iOS toolchain has no out-of-line 64-bit __atomic runtime.
++ * Use OpenSSL's existing mutex/RW-lock fallbacks; keep thread safety. */
++#if defined(__APPLE__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__) && __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ < 60000
++#define BROKEN_CLANG_ATOMICS
++#endif
+ /*
+  * Copyright 2016-2026 The OpenSSL Project Authors. All Rights Reserved.
+  *

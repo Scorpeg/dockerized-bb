@@ -172,7 +172,7 @@ ALL_TOOLCHAINS_M4  := $(patsubst %/,%,$(dir $(wildcard toolchains/*/Dockerfile.m
 ALL_TOOLCHAINS_DOC := $(patsubst %/,%,$(dir $(wildcard toolchains/*/Dockerfile)))
 ALL_TOOLCHAINS     := $(ALL_TOOLCHAINS_M4) $(ALL_TOOLCHAINS_DOC)
 
-TOOLCHAINS_RESTRICTED := toolchains/apple-sdks toolchains/appletv toolchains/macosx-arm64 toolchains/macosx-x86_64 toolchains/macosx-i386 toolchains/iphone
+TOOLCHAINS_RESTRICTED := toolchains/ios5
 
 # Override because we use the provided value and calculate the real one
 override TOOLCHAINS_ENABLED := $(call filter_list,$(TOOLCHAINS_ENABLED),$(ALL_TOOLCHAINS),toolchains/)
@@ -253,77 +253,11 @@ endif
 $(TOOLCHAINS_DL_TS): $(BUILDDIR)/%:
 	@$(MAKE) $*/pull
 
-# Specific toolchains interdependencies
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/android,\
-	toolchains/android-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/android-old,\
-	toolchains/android-common,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/devkit3ds,\
-	toolchains/devkitarm,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/devkitnds,\
-	toolchains/devkitarm,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-arm64,\
-	toolchains/apple-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-arm64,\
-	toolchains/apple-sdks,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-x86_64,\
-	toolchains/apple-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-x86_64,\
-	toolchains/apple-sdks,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-i386,\
-	toolchains/apple-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/macosx-i386,\
-	toolchains/apple-sdks,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/appletv,\
-	toolchains/apple-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/appletv,\
-	toolchains/apple-sdks,\
-	$(TOOLCHAINS_BUILT)))
-
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/iphone,\
-	toolchains/apple-common,\
-	$(TOOLCHAINS_BUILT)))
-$(eval $(call DEPEND_IMAGE,\
-	toolchains/iphone,\
-	toolchains/apple-sdks,\
-	$(TOOLCHAINS_BUILT)))
-
 # Generate dependencies over files and to common toolchain only for toolchains we will build
 $(foreach i,$(TOOLCHAINS_BUILT), \
 	$(eval $(call MAKE_DEPS,$(i))) \
 )
-$(foreach i,$(TOOLCHAINS_BUILT), \
-	$(eval $(call DEPEND_COMMON,$(i))) \
-)
+
 
 # Workers rules
 # List all workers: m4 based and raw Dockerfile based
@@ -331,7 +265,7 @@ ALL_WORKERS_M4  := $(patsubst %/,%,$(dir $(wildcard workers/*/Dockerfile.m4)))
 ALL_WORKERS_DOC := $(patsubst %/,%,$(dir $(wildcard workers/*/Dockerfile)))
 ALL_WORKERS     := $(ALL_WORKERS_M4) $(ALL_WORKERS_DOC)
 
-WORKERS_RESTRICTED := workers/appletv workers/macosx-arm64 workers/macosx-x86_64 workers/macosx-i386 workers/iphone
+WORKERS_RESTRICTED := workers/ios5
 
 # Override because we use the provided value and calculate the real one
 override WORKERS_ENABLED := $(call filter_list,$(WORKERS_ENABLED),$(ALL_WORKERS),workers/)

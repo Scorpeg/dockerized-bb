@@ -1,0 +1,245 @@
+{
+  "buildbot": {
+    "repository": "https://github.com/scummvm/dockerized-bb",
+    "revision": "5f94d534e6cdaea761fe196c3075bc1a29d24881",
+    "recipe_sha256": {
+      "COPYING": "50f8e9cb0b56c811b0675c35cb98cbdf8163cb0efdee54b81dca90d77ac40513",
+      "toolchains/apple-common/packages/cctools-port/build.sh": "a61a0ef0898e9f5a94953a910b9470a4d1ca683205acaad5891262b0a077c1b3",
+      "toolchains/apple-common/packages/cctools-port/codesign": "3703a63c305f86c2411b64df76ab7d712eca1c273f37ef2cd4d60915f5e01cbc",
+      "toolchains/apple-common/packages/cctools-port/patches/0001-Set-versions-with-environment-variables.patch": "e59c6d5e8a3c771b30d38fb12be3ac45a9205443b80b094cb18dbe2b42336a86",
+      "toolchains/apple-common/packages/cctools-port/patches/0002-Make-target-directory-and-triple-configurable.patch": "a3ff9a19bcffc21ee1175522df70cbe2c22335e8ef27a7c59be7e1cf0ca3fc26",
+      "toolchains/apple-common/packages/cctools-port/patches/0003-Make-minimum-target-version-configurable.patch": "8fb37617949e75089286ad1fbd32aabd17e42f0e42ec6d0b336925daec5ddc7a",
+      "toolchains/apple-common/packages/cctools-port/patches/0004-Really-silence-linker-arguments-when-compiling.patch": "f6a73208eb5547d11a775c70986c6bb0e445977e53ecb3526a44f4f84da5552a",
+      "toolchains/apple-common/packages/cctools-port/patches/0005-Specify-stdlib-as-recent-LLVM-require-it.patch": "b4bf615ea12138baf7ad0f0e2046a3ef01aa1d7e6e018df4e438a56c02294ea5",
+      "toolchains/apple-common/packages/compiler-rt/build.sh": "ec338fe778cfbc974ff47d0e386617e7139e87918c0923a266a43a0f099b2172",
+      "toolchains/apple-common/packages/curl/patches/00_fix_compile_flags.patch": "18a6fefde76f9be3df88b0a49a8641a505b84e4c100a8c5822ae072649446658",
+      "toolchains/apple-common/packages/libsdl2/build.sh": "3e1b584a0f75a5a3a003790cc85fa2d064900db590af61afcb03cdb737c2f346",
+      "toolchains/apple-common/packages/libsdl2-net/patches/no-sdl.patch": "b217e03c63e253af5445791b42c3893b902832760909d096442c9f01975df03b",
+      "toolchains/apple-common/packages/libvpx/patches/0004-Remove-Darwin-special-treatment.patch": "51f52057246ccecef93e85d057146f88f351c074249a29b74f182c6228da3d21",
+      "toolchains/apple-common/packages/mpeg2dec/patches/disable-arm-assembly.patch": "faa91b811714f95b239b8cba93499accfa5f187d59fca6fb71e0e68499621ef1",
+      "toolchains/apple-common/packages/osxcross/build.sh": "a05176dd409bd26bfb927c14bb4c74a87cd392df3c135024b6688c62b2bd06f5",
+      "toolchains/apple-common/packages/osxcross/patches/0001-Set-versions.patch": "dbb1caa095f125e84eabf9a75acb436db39acf781ac34696eb8e286a257cab6a",
+      "toolchains/apple-common/packages/osxcross/patches/0002-Disable-ORC-which-uses-C-17-features-on-older-SDKs.patch": "ebb0f0f0dba6df49e373c5d6145282f6583bb72e19535004df35cbd2e17919cb",
+      "toolchains/apple-common/packages/osxcross/patches/0003-Fix-build-on-MacOS-i386.patch": "f2393647485ae8ca743266a4435781831efce8e1f0f09ee1c252e21c80ec61f5",
+      "toolchains/apple-common/packages/osxcross-clang/build.sh": "25a6b531460b6732a2ae60323a2152af8e86186be34656680d66d92d2b058ff1",
+      "toolchains/apple-common/packages/rcodesign/build.sh": "d7de06f9cadcddbaa8e6203368554b1128e3b8c82edf2ba89c3c5970f6ec27bb",
+      "toolchains/apple-common/packages/rcodesign/codesign": "c1e841b3e73ab1e6a34fc30641e886860145951f5822ff0c5a26ab9fbfb3daa1",
+      "toolchains/apple-common/packages/sparkle/build.sh": "c71040c236fe2bc802ed0a6e931e75d4608358497e8424b452546c5eeb5bdf83",
+      "toolchains/apple-common/packages/xar/build.sh": "e2180685411b159107b92ce0ac018c0c56b12f791036112c6bd26419a272c7aa",
+      "toolchains/common/packages/a52dec/build.sh": "3a978a773580cf65803f092cc79147d2ea0db21c750e8f16e7a9eb76c725313b",
+      "toolchains/common/packages/bzip2/build.sh": "05c8a67a093acf157f27951123ab600c9d9c74ead97689a2c4a83c60a6030575",
+      "toolchains/common/packages/curl/build.sh": "f1b5b80537353a5634c6408d2198657e254b481b3de89ead7c7ef2427c630a41",
+      "toolchains/common/packages/discord-rpc/build.sh": "04472a632452d4be16a27297b7528a88053e8ac36df4fe47e52b1d7fac0af85c",
+      "toolchains/common/packages/discord-rpc/patches/0001-fix-rapidjson-build.patch": "417425b047fe8a3c89f6808b1c61fb4b2d59b515d61a554b621fca8fc2538dbd",
+      "toolchains/common/packages/faad2/build.sh": "9346be1b1b7e97210336485f5f4cf1a8425702836c11e0a55e0cc0b7501ebe3c",
+      "toolchains/common/packages/flac/build.sh": "a39c4e8a0adc71c9c9969ab62e746c37687271623c08fbe002cf9f8a250317ba",
+      "toolchains/common/packages/fluidlite/build.sh": "cba7ac807abfe80b1933e7a6185a3333bfde9dcc00cb9b231fea5ab99ace0759",
+      "toolchains/common/packages/fluidlite/patches/0001-Fix-static-build.patch": "f81162ce1b0266db8db6d458ed3a7a9201438b98533f6268fba59aa65f75e58e",
+      "toolchains/common/packages/fluidsynth/build.sh": "8c335281991ab91a786389fc11f6c1c078695a863fcb91ec81e9a2a17aa78c48",
+      "toolchains/common/packages/freetype/build.sh": "88e994f570e40edcc5e7ddceceae430a9402a9679ccf3b8cd334dda7b2da0a58",
+      "toolchains/common/packages/freetype/patches/0001-Fix-compilation-with-GCC-4.7.patch": "58a995a62bec5e54a1b20c07675ce74d65a537150504de3706836db629647271",
+      "toolchains/common/packages/fribidi/build.sh": "c5472f266d3c49bac09e2ab78f1e1f0cc6e2996f79b10808bf95805d2b6e65dc",
+      "toolchains/common/packages/giflib/build.sh": "6279085f57fedc200f571b3aa6c19c9baa511af0bcabf26d0e2aeaf651e4b769",
+      "toolchains/common/packages/libiconv/build.sh": "2da179735157e2f05702fa3909d834b18e87ba7d7f70937375f463c67e7f063d",
+      "toolchains/common/packages/libjpeg-turbo/build.sh": "c8b38a8d84a0d6502d0a78092e48c32dafaf1a6229051b9f229ce84049d27124",
+      "toolchains/common/packages/libmad/build.sh": "afa1499f7111f45a1631971b28d6c4a84b87411b6e064adc8bb23c7a60039105",
+      "toolchains/common/packages/libmikmod/build.sh": "44a314ee20defe8d3d397dac5058285ce35301aefb9695b6512789572d911bf8",
+      "toolchains/common/packages/libmpcdec/build.sh": "b82184e1d230a11ad36e509d2f14a7efb3f0ca5e960abca9bc90fd304f71facf",
+      "toolchains/common/packages/libogg/build.sh": "3501ae5c20fdb05da59ff0d97ac2dd270f8fd7e9d6a7e05696dfcabb379f12be",
+      "toolchains/common/packages/libpng1.6/build.sh": "a304481fad55a058888787934b4638597f47ddeb32fe885c9fa9a4e0fdd26eb3",
+      "toolchains/common/packages/libsdl1.2/build.sh": "6f35f61b30fd36b3c28d9af3d72dc074ab72cd394fc807dd3ffde83ef6ebcf23",
+      "toolchains/common/packages/libsdl2-net/build.sh": "1b1c3b0c0dee48b536440dfd43994af496a6c2fffa2c1912f336602f0ccc7f1a",
+      "toolchains/common/packages/libtheora/build.sh": "8f71661e1ad298ff1c6121436d061594118d89c42e3b31d8ca02ed7ba934a58e",
+      "toolchains/common/packages/libvorbis/build.sh": "f0da3eedbc340002462127fa5a41ac5ced23399d5c33c00d2f558722d8d37a35",
+      "toolchains/common/packages/libvorbisidec/build.sh": "8f1fb619b650c8b6b4022b80f997aa1ac7920b6a47c5c02bb355b4507fbdeca9",
+      "toolchains/common/packages/libvpx/build.sh": "5d3316c670b1febb5c0ad2702f3a135a2804c6623391f46d7777c565a4f85b83",
+      "toolchains/common/packages/libvpx/patches/0001-Ignore-bindir-and-host.patch": "b63827ef04430d6d74de452e2c130dddbadc17338f4b3b9a77c5714afb8a29ae",
+      "toolchains/common/packages/libvpx/patches/0002-Use-CC-to-determine-target-platform.patch": "52743179e10a3e0394a4a80dd075f6516fbc55024014d90cdf88089d0c22521c",
+      "toolchains/common/packages/libvpx/patches/0003-Don-t-use-pthread_setname_np-when-not-available.patch": "70bc019f3ebd7d52ed6100a07a7c4b6bb8fb15cf464f02b951aa100180f3ac03",
+      "toolchains/common/packages/mpeg2dec/build.sh": "da6ed5f091a758b1a3e295c98018163eeac7e97845722e95a169019828fac6fb",
+      "toolchains/common/packages/mpeg2dec/patches/remove-textrels.patch": "26f27c1d56fe01e07a7585caf29e9cef8181a3290ba6ed7f5b48dc690d9b51eb",
+      "toolchains/common/packages/openssl/build.sh": "e32e5065a89b218e9b8da2e5b9a4fdde1df42245ba631ff9ecdb7fa200377331",
+      "toolchains/common/packages/retrowave/build.sh": "57f6a0bf4440accdb3f4e838c7865697509840dec1ff2cab1b6ec49c0935420b",
+      "toolchains/common/packages/sdl-net1.2/build.sh": "a73d3fe192af1b4bcc82e0db73c18e8cf85e9b9b7a440986bd4f16e9ef9ad653",
+      "toolchains/common/packages/sonivox/build.sh": "7d03a19a475449ceb1c142bc7b0caa871b3f70dce134a8995be842e7d19110e5",
+      "toolchains/common/packages/zlib/build.sh": "be0dc2b2f96dc037578207a3fdb788c71a734d0a5eb0fedcbe557c727aff5fa2",
+      "toolchains/iphone/Dockerfile.m4": "095e70df2c7158878ca3cc3037a2060d5c7d4c8c20eabcd493d0ad16dca8fb04",
+      "toolchains/iphone/iphone.platform": "745f123cb1dc445d259ce5d541a07ab06f74f6788042e4aab2a9459eb38aa706",
+      "toolchains/m4/apple/xos.m4": "20de0b8dc1d12dc9b5737557cd5b5942db490ce5c523f53a601632de939b4f23"
+    }
+  },
+  "debian_suite": "trixie",
+  "packages": {
+    "bzip2": {
+      "version": "1.0.8-6",
+      "dsc": "bzip2_1.0.8-6.dsc"
+    },
+    "libjpeg-turbo": {
+      "version": "1:2.1.5-4",
+      "dsc": "libjpeg-turbo_2.1.5-4.dsc"
+    },
+    "faad2": {
+      "version": "2.11.2-1",
+      "dsc": "faad2_2.11.2-1.dsc"
+    },
+    "libmad": {
+      "version": "0.15.1b-11",
+      "dsc": "libmad_0.15.1b-11.dsc"
+    },
+    "libogg": {
+      "version": "1.3.5-3",
+      "dsc": "libogg_1.3.5-3.dsc"
+    },
+    "libtheora": {
+      "version": "1.2.0~alpha1+dfsg-6",
+      "dsc": "libtheora_1.2.0~alpha1+dfsg-6.dsc"
+    },
+    "libvorbis": {
+      "version": "1.3.7-3",
+      "dsc": "libvorbis_1.3.7-3.dsc"
+    },
+    "flac": {
+      "version": "1.5.0+ds-2",
+      "dsc": "flac_1.5.0+ds-2.dsc"
+    },
+    "libmikmod": {
+      "version": "3.3.13-1",
+      "dsc": "libmikmod_3.3.13-1.dsc"
+    },
+    "mpeg2dec": {
+      "version": "0.5.1-9",
+      "dsc": "mpeg2dec_0.5.1-9.dsc"
+    },
+    "a52dec": {
+      "version": "0.7.4-20",
+      "dsc": "a52dec_0.7.4-20.dsc"
+    },
+    "libmpc": {
+      "version": "2:0.1~r495-3",
+      "dsc": "libmpc_0.1~r495-3.dsc"
+    },
+    "libvpx": {
+      "version": "1.15.0-2.1+deb13u1",
+      "dsc": "libvpx_1.15.0-2.1+deb13u1.dsc"
+    },
+    "curl": {
+      "version": "8.14.1-2+deb13u5",
+      "dsc": "curl_8.14.1-2+deb13u5.dsc"
+    },
+    "fribidi": {
+      "version": "1.0.16-1",
+      "dsc": "fribidi_1.0.16-1.dsc"
+    },
+    "libsdl2-net": {
+      "version": "2.2.0+dfsg-3",
+      "dsc": "libsdl2-net_2.2.0+dfsg-3.dsc"
+    },
+    "zlib": {
+      "version": "1:1.3.dfsg+really1.3.1-1",
+      "dsc": "zlib_1.3.dfsg+really1.3.1-1.dsc"
+    }
+  },
+  "extra": {
+    "fluidsynth": {
+      "version": "2.6.1",
+      "url": "https://codeload.github.com/FluidSynth/fluidsynth/tar.gz/refs/tags/v2.6.1",
+      "archive": "fluidsynth-2.6.1.tar.gz"
+    },
+    "theora": {
+      "revision": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "url": "https://codeload.github.com/xiph/theora/tar.gz/28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "archive": "theora-28fd5ec77f0ad0e07a371cef1047828116f6bd8a.tar.gz"
+    },
+    "openssl": {
+      "revision": "45e844fa2a14ec92d146bd8f5778ac130b6625fb",
+      "url": "https://www.openssl.org/source/openssl-3.5.9.tar.gz",
+      "archive": "openssl-3.5.9.tar.gz",
+      "version": "3.5.9"
+    },
+    "curl": {
+      "revision": "3163ec065643ba20709f190111f42c3e1fe95273",
+      "url": "https://curl.se/download/curl-8.23.0.tar.xz",
+      "archive": "curl-8.23.0.tar.xz",
+      "version": "8.23.0"
+    },
+    "gcem": {
+      "revision": "012ae73c6d0a2cb09ffe86475f5c6fba3926e200",
+      "archive": "gcem-012ae73c6d0a2cb09ffe86475f5c6fba3926e200.zip",
+      "url": "https://codeload.github.com/kthohr/gcem/zip/012ae73c6d0a2cb09ffe86475f5c6fba3926e200"
+    },
+    "ca_bundle": {
+      "url": "https://curl.se/ca/cacert.pem",
+      "mozilla_snapshot": "2026-10-20 13:32:40 GMT",
+      "license": "MPL-2.0"
+    }
+  },
+  "sha256": {
+    "a52dec_0.7.4-20.debian.tar.xz": "78f44a5b507c453c56fdddebe5e573af71a7c899a4fc41c016a40759078d2674",
+    "a52dec_0.7.4-20.dsc": "7ab539a7d2a26896535d11341f5a1afc9897e3c426314fb93385a3678b9c0752",
+    "a52dec_0.7.4.orig.tar.gz": "a21d724ab3b3933330194353687df82c475b5dfb997513eef4c25de6c865ec33",
+    "bzip2_1.0.8-6.debian.tar.bz2": "648ed0dac9a041ba6951e0cca521628aa39947cefee78139f7b934a5dc502095",
+    "bzip2_1.0.8-6.dsc": "cd3bfd77254a6b5ef1be144bdc90a0dd374bc8206afd98ba4abf828741b79820",
+    "bzip2_1.0.8.orig.tar.gz": "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269",
+    "curl_8.14.1-2+deb13u5.debian.tar.xz": "ebdfcfab1c2001c7a539fe2a4044dbf666a544393f191bedce9ee2d07c4ea925",
+    "curl_8.14.1-2+deb13u5.dsc": "9a9a2c95cdc8b5d76892c70858f25eaf2dc0b0a475a1e43e0b4ad428414752df",
+    "curl_8.14.1.orig.tar.gz": "6766ada7101d292b42b8b15681120acd68effa4a9660935853cf6d61f0d984d4",
+    "curl_8.14.1.orig.tar.gz.asc": "39cc2ec8ddc39d04e3e7101bbed46d858d0875cbb297a6bfa20959fa2bc7d5c7",
+    "faad2_2.11.2-1.debian.tar.xz": "8c4ded42842de7653c1e3c568cd19470dc61204aee53c3d30b543bada07e6b96",
+    "faad2_2.11.2-1.dsc": "5cdfc1d225513287a6a5e84fdb73d9fedf444ac2344d0c68a0354d9ec22dcb1a",
+    "faad2_2.11.2.orig.tar.gz": "3fcbd305e4abd34768c62050e18ca0986f7d9c5eca343fb98275418013065c0e",
+    "flac_1.5.0+ds-2.debian.tar.xz": "80abb6595955cb3b590cc64d8037c0a7eba777726a23b5664d06bb1fd870fd51",
+    "flac_1.5.0+ds-2.dsc": "6104c7d69c96e7c8410248d9533bf70df71efd8365966b114c12e9e5cead041a",
+    "flac_1.5.0+ds.orig.tar.xz": "51d6a5bf5a37b67f9af847daa07c07091f6bf1583d5abb7fbb064bc68428b0f1",
+    "fluidsynth-2.6.1.tar.gz": "3d258a3bf97cc20c59eeebfe62c2432fae88adda74d3ad098681c76e0ebf446b",
+    "fribidi_1.0.16-1.debian.tar.xz": "8d1cd7177a436b25ca8153e3dd2b9fb6da411a2c3cb0105eaadf4e42b777da6f",
+    "fribidi_1.0.16-1.dsc": "10f003abcad934adde409c94f2780ec9638517dc1cc495b2a1df03a13c1d4315",
+    "fribidi_1.0.16.orig.tar.xz": "1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c",
+    "libjpeg-turbo_2.1.5-4.debian.tar.xz": "739e7dc22904dccdc5ab105de57a6e4c1515c0e841e68226e6410ff4976e0e91",
+    "libjpeg-turbo_2.1.5-4.dsc": "26cbf22aa3b3e327df072513f14a5ddfb4a7b9a3d78c46a5dccfd711c13ac743",
+    "libjpeg-turbo_2.1.5.orig.tar.gz": "254f3642b04e309fee775123133c6464181addc150499561020312ec61c1bf7c",
+    "libmad_0.15.1b-11.debian.tar.xz": "be94f0bcce7efddef02c876d9a49d47004f1f78c5428fb020c8ab491ddc881f3",
+    "libmad_0.15.1b-11.dsc": "8eebd498eb409f57f7c608aa77ab8a19f233b7445b2e16e7922f26c064edff63",
+    "libmad_0.15.1b.orig.tar.gz": "bbfac3ed6bfbc2823d3775ebb931087371e142bb0e9bb1bee51a76a6e0078690",
+    "libmad_0.15.1b.orig.tar.gz.asc": "1059d6d131643a6b6c4a6e1141eb49c8e61f9759835973541140ba0963bd292c",
+    "libmikmod_3.3.13-1.debian.tar.xz": "9c464f1c9d09d804c823a6f295adef128512f48eebbd5f90eda81f34649ce964",
+    "libmikmod_3.3.13-1.dsc": "1ce9b4706184c561103af27b7ed94091c3a0b008478b0b0fb143e920d8cd34c7",
+    "libmikmod_3.3.13.orig.tar.gz": "9fc1799f7ea6a95c7c5882de98be85fc7d20ba0a4a6fcacae11c8c6b382bb207",
+    "libmpc_0.1~r495-3.debian.tar.xz": "8753c97962bfe4fe603a18fb17e34277257ad0b1320a4a54dc40647f9a3e9aa5",
+    "libmpc_0.1~r495-3.dsc": "977a3f9dfb6f71ba660a2971041a428a35899123146076df6fe1f452c15f73cc",
+    "libmpc_0.1~r495.orig.tar.gz": "5182d7a30eec1b338cafc9c1706d663a6c8dc217b1d90187054512074f662202",
+    "libogg_1.3.5-3.debian.tar.xz": "980cc7c95d72d2a9c56cf9d602b8296c6551528890f28fee6769b801ea0e54f3",
+    "libogg_1.3.5-3.dsc": "dd0bac7c6961f95290250f82940aba93582edc3924372afc8fd310af5db995a0",
+    "libogg_1.3.5.orig.tar.xz": "c4d91be36fc8e54deae7575241e03f4211eb102afb3fc0775fbbc1b740016705",
+    "libsdl2-net_2.2.0+dfsg-3.debian.tar.xz": "c0e28a487053d96352278c5ac364a3898bc4909619b31c577bb34b8324cda68f",
+    "libsdl2-net_2.2.0+dfsg-3.dsc": "92a3f456977743f74f1eb59a2fb43ca38f8cfc6d4abab110847389206a5c2448",
+    "libsdl2-net_2.2.0+dfsg.orig.tar.xz": "b2e3313dd6496041c85af3b2ce1c69c6627e2a7d5111101a9c86c5cfb38a8f61",
+    "libtheora_1.2.0~alpha1+dfsg-6.debian.tar.xz": "37f7c87dd56059bfe6ed89737476492ccbcc99a9d04b17dd8a275f33e6e469fe",
+    "libtheora_1.2.0~alpha1+dfsg-6.dsc": "86ad6c534984f746de4abccbcc0cf762afbab8848298899bd523d9df100c13a4",
+    "libtheora_1.2.0~alpha1+dfsg.orig.tar.xz": "590e2b7803ff6b773e50d054113967082719eaab9355b183f18f8b3642933606",
+    "libvorbis_1.3.7-3.debian.tar.xz": "e6bd6b3ba76c784dffddd4e4f531a4e2d249dfef4c64bc4b262d27a0945268ed",
+    "libvorbis_1.3.7-3.dsc": "14666d60addd93c86bbbf573ef3fbc9f17818235473514c026652073ed1b550b",
+    "libvorbis_1.3.7.orig.tar.gz": "0e982409a9c3fc82ee06e08205b1355e5c6aa4c36bca58146ef399621b0ce5ab",
+    "libvpx_1.15.0-2.1+deb13u1.debian.tar.xz": "5305c07e08d604e56acf27a7bba32e49133456da83ff2f29eb899b5fa2f89625",
+    "libvpx_1.15.0-2.1+deb13u1.dsc": "a882592ba7c6c6cd465348859307faeec5b3ce92751b700c8bf808d25e51181a",
+    "libvpx_1.15.0.orig.tar.xz": "a6cfd199c5c567cfa4e6d991ec36690d9af801585b5db959c1494b5b15f821a5",
+    "mpeg2dec_0.5.1-9.debian.tar.xz": "608abb4e65898e01d8fd0552c34350fe4fc98e47c91a06c5af76bb6a8b410270",
+    "mpeg2dec_0.5.1-9.dsc": "1d5a2a82b06bdb759c9dd40d68ab5287b839f379df9074c65fc107b08bf439d7",
+    "mpeg2dec_0.5.1.orig.tar.gz": "dee22e893cb5fc2b2b6ebd60b88478ab8556cb3b93f9a0d7ce8f3b61851871d4",
+    "theora-28fd5ec77f0ad0e07a371cef1047828116f6bd8a.tar.gz": "b92c94380b3c86db5797e8f248373eecfc6230c8a0b374e64b4041645b0d2152",
+    "openssl-3.5.9.tar.gz": "603f5602e2eef00d77fbd429d34dcd5822bb301757a1bc9cdb24c670f1eb859a",
+    "curl-8.23.0.tar.xz": "8dadd7d2536a314f982ad05a651b713f426bf7d02cc2c76cffb9796f2218e6c5",
+    "gcem-012ae73c6d0a2cb09ffe86475f5c6fba3926e200.zip": "28159274c54e9640354852e172d10d88eb159f4e7f2fea42edbcd20105ed3526",
+    "zlib_1.3.dfsg+really1.3.1-1.dsc": "ede2791e29c1d3b422f9208bdd7edf040c20445ea1e7453a72037576e64fa197",
+    "zlib_1.3.dfsg+really1.3.1.orig.tar.gz": "60dd315c07f616887caa029408308a018ace66e3d142726a97db164b3b8f69fb",
+    "zlib_1.3.dfsg+really1.3.1-1.debian.tar.xz": "9ed525955ce9fb0c1b39be8ff98f73450dbfc6305a9a27e6149c8972d38a0a9e",
+    "cacert.pem": "796f1389bfea13c0ed78f663b765baaff54a508e5483786bd6ece73c5e3e3cbe"
+  },
+  "active_source_overrides": {
+    "libtheora": "theora revision 28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+    "openssl": "openssl-3.5.9.tar.gz",
+    "curl": "curl-8.23.0.tar.xz"
+  },
+  "local_patch_sha256": {
+    "packaging/dependency-patches/openssl-ios5-atomics.patch": "10589b75666b6d1ce01d47a90c5992193e77927648f27d1f5fe4c13e3acee942"
+  }
+}

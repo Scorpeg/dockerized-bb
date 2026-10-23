@@ -1,0 +1,2 @@
+*.patch -whitespace
+packaging/LICENSE-FreeType-bundled.txt -whitespace

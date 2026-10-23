@@ -1,0 +1,14 @@
+{
+  "name": "libpng",
+  "version": "1.6.59",
+  "repository": "https://github.com/pnggroup/libpng",
+  "tag": "v1.6.59",
+  "tag_object": "a543b51f2de2904f3436830394b1013782f7f9e6",
+  "revision": "cd952f49f95bb27154ae77dbb103032d95f6e580",
+  "archive_url": "https://codeload.github.com/pnggroup/libpng/tar.gz/cd952f49f95bb27154ae77dbb103032d95f6e580",
+  "archive_sha256": "ef1bccad2b2a58eb3c09e06ffe3b72b8604abda8b5011e4c4bb5391989040f26",
+  "manifest_sha256": "97dd44f1406f383410cd7d1e41111bfa265763815fc5d4395df741d0bf11a3b1",
+  "license": "libpng-2.0; see libpng/LICENSE",
+  "patches": [],
+  "configuration": "scripts/pnglibconf.h.prebuilt; static C implementation, PNG_ARM_NEON_OPT=0, system SDK zlib"
+}
