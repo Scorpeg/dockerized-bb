@@ -66,6 +66,6 @@ def get_builder(build, config, workers, lock):
         waitForFinish=False))
     return util.BuilderConfig(
         name='sync-ios5', workernames=workers.workers_by_type['fetcher'],
-        workerbuilddir='/data/triggers/sync-ios5', factory=factory,
+        workerbuilddir=os.path.join(config.data_dir, 'triggers', 'sync-ios5'), factory=factory,
         locks=[lock.access('counting')],
         tags=['sync', 'daily', build.name], project=build.name)

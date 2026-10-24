@@ -1,0 +1,13 @@
+**
+!master/
+!master/ios5/
+!master/ios5/Dockerfile
+!buildbot-config/
+!buildbot-config/**
+!scripts/
+!scripts/web-master.py
+!scripts/sync-ios5.sh
+!scripts/git-askpass.sh
+buildbot-config/config.py
+buildbot-config/htpasswd
+**/__pycache__/

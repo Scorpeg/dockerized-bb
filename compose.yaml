@@ -1,0 +1,45 @@
+name: scummvm-ios5
+services:
+  buildbot:
+    build:
+      context: .
+      dockerfile: master/ios5/Dockerfile
+    image: masters/ios5
+    platform: linux/amd64
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8010:8010"
+    environment:
+      IOS5_BUILDBOT_ROOT: /bb
+      IOS5_STATE_DIR: /state
+      IOS5_DATA_DIR: /data
+      IOS5_REPOSITORY: ${IOS5_REPOSITORY:?Set IOS5_REPOSITORY in .env}
+      IOS5_PUBLIC_URL: ${IOS5_PUBLIC_URL:-http://127.0.0.1:8010/}
+      IOS5_LISTEN_ADDRESS: 0.0.0.0
+      IOS5_DAILY_SYNC: "1"
+      IOS5_GIT_TOKEN_FILE: /run/secrets/git_token
+      IOS5_JOBS: ${IOS5_JOBS:-6}
+    secrets:
+      - git_token
+    volumes:
+      - state:/state
+      - data:/data
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --max-time, "5", "http://127.0.0.1:8010/api/v2/builders"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    stop_grace_period: 60s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+secrets:
+  git_token:
+    file: ${IOS5_GIT_TOKEN_FILE:?Set IOS5_GIT_TOKEN_FILE in .env}
+volumes:
+  state:
+  data:

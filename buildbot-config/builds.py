@@ -254,7 +254,7 @@ class StandardBuild(Build):
         yield util.BuilderConfig(
             name = self.names['bld-fetch'],
             workernames = workers.workers_by_type['fetcher'],
-            workerbuilddir = "/data/src/{0}".format(self.name),
+            workerbuilddir = os.path.join(config.data_dir, "src", self.name),
             factory = f,
             tags = ["fetch", self.name],
             project = self.name,
@@ -278,7 +278,7 @@ class StandardBuild(Build):
                 name = self.names['bld-daily'],
                 # We use fetcher worker here as it will prevent building of other stuff like if a change had happened
                 workernames = workers.workers_by_type['fetcher'],
-                workerbuilddir = "/data/triggers/daily-{0}".format(self.name),
+                workerbuilddir = os.path.join(config.data_dir, "triggers", "daily-" + self.name),
                 factory = f,
                 tags = ["daily", self.name],
                 project = self.name,
@@ -303,7 +303,7 @@ class StandardBuild(Build):
         yield util.BuilderConfig(
             name = self.names['bld-clean'],
             workernames = workers.workers_by_type['fetcher'],
-            workerbuilddir = "/data/triggers/cleanup-{0}".format(self.name),
+            workerbuilddir = os.path.join(config.data_dir, "triggers", "cleanup-" + self.name),
             factory = f,
             tags = ["cleanup", self.name],
             project = self.name,
@@ -319,9 +319,8 @@ class StandardBuild(Build):
         if not platform.canBuild(self):
             return
 
-        # Don't use os.path.join as builder is a linux image
-        src_path = "{0}/src".format("/data")
-        build_path = "{0}/build".format("/data")
+        src_path = os.path.join(config.data_dir, "src", self.name)
+        build_path = os.path.join(config.data_dir, "builds", platform.name, self.name)
 
         # daily_builds_path is used in Package step on master side
         daily_builds_path = os.path.join(config.daily_builds_dir, self.name)
