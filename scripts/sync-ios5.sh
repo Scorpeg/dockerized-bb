@@ -69,7 +69,10 @@ if ! git --git-dir="$gitdir" merge-base --is-ancestor "$master_before" "$upstrea
     exit 1
 fi
 run_command git --git-dir="$gitdir" worktree add --detach "$work/src" "$before"
-run_command git -C "$work/src" -c user.name='iOS5 upstream sync' -c user.email='ios5-sync@users.noreply.github.com' \
+committer_name=$(git --git-dir="$gitdir" show -s --format=%an "$before")
+committer_email=$(git --git-dir="$gitdir" show -s --format=%ae "$before")
+[[ -n $committer_name && -n $committer_email ]] || { echo 'Missing port author identity' >&2; exit 1; }
+run_command git -C "$work/src" -c user.name="$committer_name" -c user.email="$committer_email" \
     rebase --no-rebase-merges --no-fork-point "$upstream_revision"
 run_command python3 "$work/src/backends/platform/ios5/prepare.py" --source "$work/src" --output "$work/overrides"
 after=$(git -C "$work/src" rev-parse HEAD)
