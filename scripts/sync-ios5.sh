@@ -20,7 +20,7 @@ git -C "$work/src" remote add upstream "$upstream"
 git -C "$work/src" fetch --no-tags upstream "refs/heads/$upstream_branch:refs/remotes/upstream/$upstream_branch"
 before=$(git -C "$work/src" rev-parse HEAD)
 upstream_revision=$(git -C "$work/src" rev-parse "refs/remotes/upstream/$upstream_branch")
-git -C "$work/src" merge --no-edit "refs/remotes/upstream/$upstream_branch"
+git -C "$work/src" merge -m "IOS: Merge upstream $upstream_branch into $branch" "refs/remotes/upstream/$upstream_branch"
 python3 "$work/src/backends/platform/ios5/prepare.py" --source "$work/src" --output "$work/overrides"
 after=$(git -C "$work/src" rev-parse HEAD)
 printf 'Fork before: %s\nUpstream: %s\nValidated candidate: %s\n' "$before" "$upstream_revision" "$after"
