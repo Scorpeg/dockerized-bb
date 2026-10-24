@@ -1,0 +1,5 @@
+{
+  "bot_token": "123456:REPLACE_WITH_BOT_TOKEN",
+  "chat_id": "REPLACE_WITH_CHAT_ID",
+  "proxy": "socks5h://user:password@proxy.example.org:1080"
+}

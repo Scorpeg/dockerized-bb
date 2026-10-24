@@ -24,6 +24,12 @@ www = {
 }
 services = []
 
+telegram_config = os.environ.get('IOS5_TELEGRAM_CONFIG_FILE')
+if telegram_config:
+    from utils.telegram import read_settings, TelegramStatusPush
+    if read_settings(telegram_config) is not None:
+        services.append(TelegramStatusPush(telegram_config))
+
 if hasattr(config, 'github_avatars') and config.github_avatars:
     token = (hasattr(config, 'github_token') and config.github_token) or None
     www['avatar_methods'].append(util.AvatarGitHub(token=token))

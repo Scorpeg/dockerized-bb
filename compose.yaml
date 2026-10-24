@@ -20,8 +20,10 @@ services:
       IOS5_DAILY_SYNC: "1"
       IOS5_GIT_TOKEN_FILE: /run/secrets/git_token
       IOS5_JOBS: ${IOS5_JOBS:-6}
+      IOS5_TELEGRAM_CONFIG_FILE: /run/secrets/telegram
     secrets:
       - git_token
+      - telegram
     volumes:
       - state:/state
       - data:/data
@@ -38,6 +40,8 @@ services:
         max-size: 10m
         max-file: "3"
 secrets:
+  telegram:
+    file: ${IOS5_TELEGRAM_CONFIG_FILE:-/dev/null}
   git_token:
     file: ${IOS5_GIT_TOKEN_FILE:?Set IOS5_GIT_TOKEN_FILE in .env}
 volumes:
