@@ -53,6 +53,7 @@ daily_builds_clean_unknown = True
 # Each build entry is in the form
 # "name": { poll parameters }
 builds_to_poll = {
+    "master": {"pollInterval": 300, "pollAtLaunch": True},
 }
 
 # Github settings

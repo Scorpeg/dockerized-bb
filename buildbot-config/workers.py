@@ -43,7 +43,7 @@ def StandardBuilderWorker(name, **kwargs):
         util.Interpolate('{0}/builds/%(prop:platformname)s/%(prop:buildname)s:/data/build'.format(config.data_dir)),
         '{0}/ccache:/data/ccache'.format(config.data_dir),
         util.Interpolate('{0}/src/%(prop:buildname)s:/data/src:ro'.format(config.data_dir)),
-    ]
+    ] + getattr(config, 'ios5_source_mounts', [])
     password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(32))
     tmpfs = docker.types.Mount('/tmp', None, type='tmpfs')
     nofile_limit = docker.types.Ulimit(name='nofile', soft=NOFILE_LIMIT_SOFT, hard=NOFILE_LIMIT_HARD)
@@ -69,7 +69,7 @@ def FetcherWorker(name, **kwargs):
     volumes = [
         '{0}/src:/data/src'.format(config.data_dir),
         '{0}/triggers:/data/triggers'.format(config.data_dir),
-    ]
+    ] + getattr(config, 'ios5_source_mounts', [])
     password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(32))
     tmpfs = docker.types.Mount('/tmp', None, type='tmpfs')
     nofile_limit = docker.types.Ulimit(name='nofile', soft=NOFILE_LIMIT_SOFT, hard=NOFILE_LIMIT_HARD)

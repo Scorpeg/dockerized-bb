@@ -12,6 +12,7 @@ from buildbot.plugins import schedulers
 from buildbot.plugins import steps
 
 from utils import scummsteps
+from utils.ios5poller import IOS5GitPoller
 import config
 import workers
 
@@ -141,10 +142,11 @@ class StandardBuild(Build):
         self.names['bld-platform'] = get_platform_name
 
     def getChangeSource(self, settings):
-        return changes.GitPoller(
+        return IOS5GitPoller(
             name=self.names['poller'],
             repourl=self.giturl,
             branches=[self.branch],
+            project=self.name,
             workdir=os.path.join(config.data_dir, 'pollers', self.name),
             **settings)
 
@@ -155,8 +157,9 @@ class StandardBuild(Build):
         yield schedulers.SingleBranchScheduler(name = self.names['sch-sb'],
                 change_filter = change_filter,
                 # Wait for 5 minutes before starting build
-                treeStableTimer = 300,
-                builderNames = [ self.names['bld-fetch'] ])
+                treeStableTimer = getattr(config, "ios5_stable_seconds", 300),
+                builderNames = [ self.names['bld-fetch'] ],
+                properties = {"package": True})
 
         # Daily scheduler (started by time)
         # It's triggered after regular builds to take note of the last fetched source
@@ -572,4 +575,4 @@ class ScummVMToolsBuild(StandardBuild):
         # Don't do anything: we don't have tests of tools
         pass
 
-builds = [ScummVMBuild("master", getattr(config, "ios5_repository", "https://github.com/YOUR_ACCOUNT/scummvm"), getattr(config, "ios5_branch", "ios5"), verbose_build=True, description="ScummVM iOS5")]
+builds = [ScummVMBuild("master", getattr(config, "ios5_repository", "https://github.com/YOUR_ACCOUNT/scummvm"), getattr(config, "ios5_branch", "ios5"), giturl=getattr(config, "ios5_giturl", None), verbose_build=True, description="ScummVM iOS5")]

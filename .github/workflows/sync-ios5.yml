@@ -1,0 +1,36 @@
+name: Sync ScummVM iOS5 with upstream master
+on:
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sync-scummvm-ios5
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Merge upstream and validate iOS5 overrides
+        env:
+          IOS5_PUSH_TOKEN: ${{ secrets.SCUMMVM_PUSH_TOKEN }}
+          IOS5_REPOSITORY: https://github.com/${{ github.repository_owner }}/scummvm.git
+          GIT_TERMINAL_PROMPT: '0'
+        shell: bash
+        run: |
+          test -n "$IOS5_PUSH_TOKEN" || { echo 'SCUMMVM_PUSH_TOKEN is required'; exit 1; }
+          export GIT_ASKPASS="$RUNNER_TEMP/ios5-askpass"
+          cat > "$GIT_ASKPASS" <<'ASKPASS'
+          #!/usr/bin/env bash
+          case "$1" in
+            *Username*) printf '%s\n' x-access-token ;;
+            *Password*) printf '%s\n' "$IOS5_PUSH_TOKEN" ;;
+            *) exit 1 ;;
+          esac
+          ASKPASS
+          chmod 700 "$GIT_ASKPASS"
+          trap 'rm -f "$GIT_ASKPASS"' EXIT
+          bash scripts/sync-ios5.sh --push
