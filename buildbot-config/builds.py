@@ -12,6 +12,7 @@ from buildbot.plugins import schedulers
 from buildbot.plugins import steps
 
 from utils import scummsteps
+from utils import ios5daily
 from utils.ios5poller import IOS5GitPoller
 import config
 import workers
@@ -154,12 +155,14 @@ class StandardBuild(Build):
         change_filter = util.ChangeFilter(repository = [self.baseurl, self.giturl], branch = self.branch)
 
         # Fetch scheduler (triggered by event source)
-        yield schedulers.SingleBranchScheduler(name = self.names['sch-sb'],
-                change_filter = change_filter,
-                # Wait for 5 minutes before starting build
-                treeStableTimer = getattr(config, "ios5_stable_seconds", 300),
-                builderNames = [ self.names['bld-fetch'] ],
-                properties = {"package": True})
+        if getattr(config, 'ios5_daily_sync', False):
+            yield from ios5daily.get_schedulers(self)
+        else:
+            yield schedulers.SingleBranchScheduler(name = self.names['sch-sb'],
+                    change_filter = change_filter,
+                    treeStableTimer = getattr(config, "ios5_stable_seconds", 300),
+                    builderNames = [ self.names['bld-fetch'] ],
+                    properties = {"package": True})
 
         # Daily scheduler (started by time)
         # It's triggered after regular builds to take note of the last fetched source
@@ -212,10 +215,12 @@ class StandardBuild(Build):
                     ])
 
     def getGlobalBuilders(self, platforms):
+        if getattr(config, 'ios5_daily_sync', False):
+            yield ios5daily.get_builder(self, config, workers, lock_build)
         f = util.BuildFactory()
         f.workdir = ""
         f.useProgress = False
-        f.addStep(steps.Git(mode = "incremental",
+        f.addStep(steps.Git(mode = "incremental", haltOnFailure = True,
             repourl = self.giturl,
             branch = self.branch,
             locks = [ self.lock_src.access("exclusive") ],

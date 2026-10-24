@@ -12,8 +12,10 @@ text = (config / 'config.py.example').read_text()
 text += f'\ndata_dir = {str(data)!r}\n'
 text += 'daily_builds_dir = os.path.join(data_dir, "packages", "dailybuilds")\n'
 text += 'docker_workers_net = "ios5-web-workers"\n'
-text += 'buildbot_url = "http://127.0.0.1:8010/"\n'
-text += 'www_port = ("127.0.0.1", 8010)\n'
+public_url = os.environ.get('IOS5_PUBLIC_URL', 'http://127.0.0.1:8010/').rstrip('/') + '/'
+listen_address = os.environ.get('IOS5_LISTEN_ADDRESS', '127.0.0.1')
+text += f'buildbot_url = {public_url!r}\n'
+text += f'www_port = ({listen_address!r}, 8010)\n'
 text += 'title = "ScummVM iOS5"\ngithub_avatars = False\nmax_jobs = 6\n'
 text += 'serve_daily_builds = True\n'
 if os.environ.get('IOS5_REPOSITORY'):
@@ -21,6 +23,11 @@ if os.environ.get('IOS5_REPOSITORY'):
     text += 'ios5_giturl = ios5_repository\n'
 text += 'daily_builds_url = buildbot_url + "plugins/wsgi_dashboards/dailybuilds/packages/"\n'
 source = os.environ.get('IOS5_LOCAL_SOURCE')
+daily_sync = os.environ.get('IOS5_DAILY_SYNC', '0' if source else '1') == '1'
+if source and daily_sync:
+    raise SystemExit('Daily sync requires the published fork, not IOS5_LOCAL_SOURCE')
+text += f'ios5_daily_sync = {daily_sync!r}\n'
+text += f'ios5_sync_script = {str(repo / "scripts/sync-ios5.sh")!r}\n'
 if source:
     text += f'ios5_repository = {Path(source).as_uri()!r}\nios5_giturl = ios5_repository\n'
     text += f'ios5_source_mounts = {os.environ["IOS5_SOURCE_MOUNTS"].splitlines()!r}\n'

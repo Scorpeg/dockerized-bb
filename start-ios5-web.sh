@@ -23,6 +23,19 @@ case "$1" in
     echo 'Set IOS5_REPOSITORY to your fork URL' >&2
     exit 1
    fi
+   daily_sync=${IOS5_DAILY_SYNC:-1}
+   if [[ -n ${IOS5_LOCAL_SOURCE:-} ]]; then
+    daily_sync=${IOS5_DAILY_SYNC:-0}
+    [[ $daily_sync == 0 ]] || { echo 'Daily sync requires the published fork' >&2; exit 1; }
+   fi
+   [[ $daily_sync == 0 || $daily_sync == 1 ]] || { echo 'IOS5_DAILY_SYNC must be 0 or 1' >&2; exit 2; }
+   token_path=''
+   if [[ $daily_sync == 1 ]]; then
+    [[ -n ${IOS5_GIT_TOKEN_FILE:-} && -s ${IOS5_GIT_TOKEN_FILE:-} && -r ${IOS5_GIT_TOKEN_FILE:-} ]] || { echo 'Set IOS5_GIT_TOKEN_FILE to the readable server Git token file' >&2; exit 1; }
+    token_file=$(realpath "$IOS5_GIT_TOKEN_FILE")
+    token_path=/run/secrets/scummvm-push-token
+    mounts+=(--mount "type=bind,src=$token_file,dst=$token_path,readonly")
+   fi
    if [[ -n ${IOS5_LOCAL_SOURCE:-} ]]; then
     source=$(cd "$IOS5_LOCAL_SOURCE" && pwd -P)
     common=$(git -C "$source" rev-parse --path-format=absolute --git-common-dir)
@@ -44,6 +57,9 @@ case "$1" in
     -v "$repo:$repo" -v "$data:$data" "${mounts[@]}" \
     -e "IOS5_BUILDBOT_ROOT=$repo" -e "IOS5_DATA_DIR=$data" \
     -e "IOS5_REPOSITORY=$source_repository" \
+    -e "IOS5_PUBLIC_URL=${IOS5_PUBLIC_URL:-http://127.0.0.1:8010/}" \
+    -e "IOS5_LISTEN_ADDRESS=${IOS5_LISTEN_ADDRESS:-127.0.0.1}" \
+    -e "IOS5_DAILY_SYNC=$daily_sync" -e "IOS5_GIT_TOKEN_FILE=$token_path" \
     -e "IOS5_LOCAL_SOURCE=${IOS5_LOCAL_SOURCE:-}" -e "IOS5_SOURCE_MOUNTS=$source_mounts" \
     -w "$repo" masters/ios5 "$repo/scripts/web-master.py"
   fi
