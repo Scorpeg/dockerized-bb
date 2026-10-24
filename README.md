@@ -18,3 +18,5 @@ docker compose logs -f
 One container runs the dashboard, Git sync, compilation, and packaging. Daily at **02:15 Europe/Moscow**, Buildbot updates fork `master`, rebases `ios5`, validates, and builds. Conflicts stop the job; no host cron is needed.
 
 Point nginx at `127.0.0.1:8010`. State and build data persist in Compose volumes. Use `docker compose stop` to stop; `docker compose down` preserves data unless `--volumes` is added. Existing Bash deployments need their state and data migrated before switching.
+
+Run a fresh sync/build now: `docker compose exec buildbot python /bb/scripts/build-now.py`.

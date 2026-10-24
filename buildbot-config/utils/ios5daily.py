@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from twisted.internet import defer
 from buildbot.plugins import schedulers, steps, util
 from buildbot.process.logobserver import BufferLogObserver
+from utils.ios5manual import IOS5Manual
 
 
 class IOS5Nightly(schedulers.Nightly):
@@ -33,6 +34,10 @@ class SyncIOS5(steps.MasterShellCommand):
 
 
 def get_schedulers(build):
+    import config
+    yield IOS5Manual(name='sync-ios5-manual', builderNames=['sync-ios5'],
+                     request_dir=os.path.join(config.data_dir, 'manual-requests'),
+                     repository=build.giturl, branch=build.branch)
     yield IOS5Nightly(name='sync-ios5-nightly', branch=build.branch,
                      builderNames=['sync-ios5'], hour=2, minute=15,
                      onlyIfChanged=False)
