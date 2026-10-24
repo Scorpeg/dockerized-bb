@@ -61,7 +61,7 @@ def get_builder(build, config, workers, lock):
             'IOS5_GIT_TOKEN_FILE': os.environ.get('IOS5_GIT_TOKEN_FILE', ''),
             'GIT_TERMINAL_PROMPT': '0',
         },
-        haltOnFailure=True, runtime_timeout=3600))
+        haltOnFailure=True, interruptSignal='TERM', runtime_timeout=3600))
     factory.addStep(steps.Trigger(
         name='queue fresh iOS5 build', schedulerNames=['ios5-synced-fetch'],
         sourceStamps=[{'revision': util.Property('ios5_synced_revision'),

@@ -24,20 +24,42 @@ cache=$(cd "$cache" && pwd -P)
 exec 9>"$cache/sync.lock"
 flock -n 9 || { echo 'Another iOS5 sync is running' >&2; rmdir "$work"; exit 1; }
 gitdir="$cache/repository.git"
+child=''
+run_command() {
+    setsid "$@" &
+    child=$!
+    local result=0
+    wait "$child" || result=$?
+    child=''
+    return "$result"
+}
 cleanup() {
+    result=$?
+    trap - EXIT TERM INT
+    if [[ -n $child ]]; then
+        kill -TERM -- "-$child" 2>/dev/null || true
+        sleep 0.2
+        kill -KILL -- "-$child" 2>/dev/null || true
+        wait "$child" 2>/dev/null || true
+    fi
     git --git-dir="$gitdir" worktree remove --force "$work/src" >/dev/null 2>&1 || true
     rm -rf -- "$work"
+    exit "$result"
 }
 trap cleanup EXIT
+trap 'echo "Sync interrupted (TERM); stopping child processes" >&2; exit 143' TERM
+trap 'echo "Sync interrupted (INT); stopping child processes" >&2; exit 130' INT
 if [[ ! -d $gitdir ]]; then
-    git init --bare "$gitdir"
+    git -c init.defaultBranch=master init --bare "$gitdir"
 fi
 git --git-dir="$gitdir" config remote.origin.url "$fork"
 git --git-dir="$gitdir" config remote.upstream.url "$upstream"
-git --git-dir="$gitdir" fetch --no-tags origin \
+printf 'Fetching fork branches\n'
+run_command git --git-dir="$gitdir" fetch --progress --no-tags origin \
     "+refs/heads/$branch:refs/remotes/origin/$branch" \
     "+refs/heads/$master_branch:refs/remotes/origin/$master_branch"
-git --git-dir="$gitdir" fetch --no-tags upstream \
+printf 'Fetching upstream master\n'
+run_command git --git-dir="$gitdir" fetch --progress --no-tags upstream \
     "+refs/heads/$upstream_branch:refs/remotes/upstream/$upstream_branch"
 before=$(git --git-dir="$gitdir" rev-parse "refs/remotes/origin/$branch")
 master_before=$(git --git-dir="$gitdir" rev-parse "refs/remotes/origin/$master_branch")
@@ -46,10 +68,10 @@ if ! git --git-dir="$gitdir" merge-base --is-ancestor "$master_before" "$upstrea
     echo "Fork $master_branch has commits absent from upstream; refusing to rewrite it" >&2
     exit 1
 fi
-git --git-dir="$gitdir" worktree add --detach "$work/src" "$before"
-git -C "$work/src" -c user.name='iOS5 upstream sync' -c user.email='ios5-sync@users.noreply.github.com' \
+run_command git --git-dir="$gitdir" worktree add --detach "$work/src" "$before"
+run_command git -C "$work/src" -c user.name='iOS5 upstream sync' -c user.email='ios5-sync@users.noreply.github.com' \
     rebase --no-rebase-merges --no-fork-point "$upstream_revision"
-python3 "$work/src/backends/platform/ios5/prepare.py" --source "$work/src" --output "$work/overrides"
+run_command python3 "$work/src/backends/platform/ios5/prepare.py" --source "$work/src" --output "$work/overrides"
 after=$(git -C "$work/src" rev-parse HEAD)
 [[ -z $(git -C "$work/src" rev-list --merges "$upstream_revision..HEAD") ]]
 printf 'Fork master before: %s\nFork ios5 before: %s\nUpstream: %s\nValidated candidate: %s\n' "$master_before" "$before" "$upstream_revision" "$after"
@@ -58,7 +80,7 @@ if [[ $mode == --check ]]; then
     exit 0
 fi
 if [[ $before != "$after" || $master_before != "$upstream_revision" ]]; then
-    git --git-dir="$gitdir" push --atomic \
+    run_command git --git-dir="$gitdir" push --progress --atomic \
         "--force-with-lease=refs/heads/$master_branch:$master_before" \
         "--force-with-lease=refs/heads/$branch:$before" \
         origin "$upstream_revision:refs/heads/$master_branch" "$after:refs/heads/$branch"
