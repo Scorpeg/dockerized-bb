@@ -130,6 +130,9 @@ platform.configureargs = [
     "--disable-debug", "--disable-Werror", "--enable-release", "--enable-test-c++11"
 ]
 platform.env.update({"FLUIDSYNTH_LIBS": "-lc++", "IOS5_REQUIRE_FULL": "1"})
+if getattr(config, 'ios5_update_config', None):
+    platform.env.update({"IOS5_UPDATE_URL": config.ios5_update_config['url'],
+                         "IOS5_UPDATE_PUBLIC_KEY": config.ios5_update_config['public_key']})
 platform.packaging_cmd = "ios5deb"
 platform.built_files = ["scummvm-*-ios5*.deb"]
 platform.archiveext = "zip"

@@ -26,6 +26,13 @@ text += f'buildbot_url = {public_url!r}\n'
 text += f'www_port = ({listen_address!r}, 8010)\n'
 text += 'title = "ScummVM iOS5"\ngithub_avatars = False\n'
 text += f'max_jobs = {jobs}\n'
+import importlib.util
+spec = importlib.util.spec_from_file_location('ios5_updates', repo / 'scripts/init-ios5-updates.py')
+updates = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(updates)
+update_config = updates.initialize(data, public_url)
+text += f'ios5_update_config = {update_config!r}\n'
+text += f'ios5_update_publish_script = {str(repo / "scripts/publish-ios5-update.py")!r}\n'
 text += 'serve_daily_builds = True\n'
 if os.environ.get('IOS5_REPOSITORY'):
     text += f'ios5_repository = {os.environ["IOS5_REPOSITORY"]!r}\n'

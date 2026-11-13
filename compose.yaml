@@ -21,9 +21,11 @@ services:
       IOS5_GIT_TOKEN_FILE: /run/secrets/git_token
       IOS5_JOBS: ${IOS5_JOBS:-6}
       IOS5_TELEGRAM_CONFIG_FILE: /run/secrets/telegram
+      IOS5_UPDATE_SIGNING_KEY_FILE: /run/secrets/update_signing_key
     secrets:
       - git_token
       - telegram
+      - update_signing_key
     volumes:
       - state:/state
       - data:/data
@@ -40,6 +42,8 @@ services:
         max-size: 10m
         max-file: "3"
 secrets:
+  update_signing_key:
+    file: ${IOS5_UPDATE_SIGNING_KEY_FILE:-/dev/null}
   telegram:
     file: ${IOS5_TELEGRAM_CONFIG_FILE:-/dev/null}
   git_token:

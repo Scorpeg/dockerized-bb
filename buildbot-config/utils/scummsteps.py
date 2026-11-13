@@ -4,6 +4,7 @@ import operator
 import os
 import re
 import urllib.parse as urlp
+import config
 
 from twisted.internet import defer
 
@@ -294,6 +295,20 @@ def get_package_steps(buildname, platformname, srcpath, dstpath, dsturl,
         command = getLinkCommand,
         env = {})
 
+    if platformname == "ios5" and getattr(config, 'ios5_update_config', None):
+        @util.renderer
+        def updateCommand(props):
+            _, archive, _ = namesFromProps(props)
+            return ["python3", config.ios5_update_publish_script,
+                    "--archive", os.path.join(dstpath, archive),
+                    "--destination", os.path.join(dstpath, "updates"),
+                    "--key", config.ios5_update_config['key'],
+                    "--revision", props["revision"]]
+
+        publish = steps.MasterShellCommand(
+            name="publish signed iOS5 update", doStepIf=doPackage,
+            haltOnFailure=True, flunkOnFailure=True, command=updateCommand)
+        return build_package, upload_package, publish, link
     return build_package, upload_package, link
 
 # buildstep class to wipe all build folders (eg "trunk-*")
@@ -355,6 +370,8 @@ class CleanupDailyBuilds(steps.BuildStep):
         result = util.SUCCESS
         with dir_iter:
             for dir_entry in dir_iter:
+                if dir_entry.name == "updates" and dir_entry.is_dir(follow_symlinks=False):
+                    continue
                 parsed = parse_package_name(dir_entry.name, build = self.buildname)
 
                 if parsed is None:

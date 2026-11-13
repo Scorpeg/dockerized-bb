@@ -24,3 +24,5 @@ __pycache__/
 /buildbot.env
 /config.local.env
 /.env
+
+/update-signing.pem

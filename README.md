@@ -20,3 +20,5 @@ One container runs the dashboard, Git sync, compilation, and packaging. Daily at
 Point nginx at `127.0.0.1:8010`. State and build data persist in Compose volumes. Use `docker compose stop` to stop; `docker compose down` preserves data unless `--volumes` is added. Existing Bash deployments need their state and data migrated before switching.
 
 Run a fresh sync/build now: `docker compose exec buildbot python /bb/scripts/build-now.py`.
+
+App updates: create a persistent RSA key with `openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out update-signing.pem`, protect it with `chmod 600 update-signing.pem`, and set `IOS5_UPDATE_SIGNING_KEY_FILE` to its absolute path in `.env`. `IOS5_PUBLIC_URL` must use HTTPS. Keep this key private and backed up; devices trust its public key. Install the first updater-enabled `.deb` manually, then use **Global Options → Misc → Check now**.
