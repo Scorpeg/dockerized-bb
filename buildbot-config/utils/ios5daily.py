@@ -67,7 +67,7 @@ def get_builder(build, config, workers, lock):
         sourceStamps=[{'revision': util.Property('ios5_synced_revision'),
                        'repository': build.giturl, 'branch': build.branch,
                        'project': build.name, 'codebase': ''}],
-        set_properties={'clean': True, 'package': True},
+        set_properties={'clean': util.Property('clean', default=False), 'package': True},
         waitForFinish=False))
     return util.BuilderConfig(
         name='sync-ios5', workernames=workers.workers_by_type['fetcher'],

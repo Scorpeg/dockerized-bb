@@ -274,7 +274,7 @@ class StandardBuild(Build):
                 waitForFinish = True,
                 set_properties = {
                     'got_revision': util.Property('got_revision', defaultWhenFalse=False),
-                    'clean': True,
+                    'clean': util.Property('clean', default=False),
                     'package': True,
                     # Ensure our tag is put first and is split from the others
                     'owner': '  Daily build  ',
@@ -409,7 +409,7 @@ class StandardBuild(Build):
         command.extend(additional_args_after)
 
         f.addStep(steps.Configure(command = command,
-            doStepIf = util.Property("do_configure", default=True, defaultWhenFalse=False),
+            doStepIf = True if platform.name == "ios5" else util.Property("do_configure", default=True, defaultWhenFalse=False),
             env = env))
 
     def addBuildSteps(self, f, platform, *, env, **kwargs):
