@@ -157,6 +157,11 @@ class StandardBuild(Build):
         # Fetch scheduler (triggered by event source)
         if getattr(config, 'ios5_daily_sync', False):
             yield from ios5daily.get_schedulers(self)
+            yield schedulers.Nightly(
+                name="ios5-package-cleanup-" + self.name,
+                branch=self.branch,
+                builderNames=[self.names['bld-clean']],
+                hour=4, minute=15, onlyIfChanged=False)
         else:
             yield schedulers.SingleBranchScheduler(name = self.names['sch-sb'],
                     change_filter = change_filter,

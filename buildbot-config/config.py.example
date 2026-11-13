@@ -41,7 +41,7 @@ max_jobs = None
 
 # Daily builds retention settings
 # Number of daily builds to keep
-daily_builds_keep_builds = 14
+daily_builds_keep_builds = 7
 # Number of days to keep a daily build
 # Latest one will always be spared from cleaning
 daily_builds_obsolete_days = 30
